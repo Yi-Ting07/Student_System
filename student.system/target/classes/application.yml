@@ -1,0 +1,23 @@
+server:
+  port: 8085
+
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521/xe
+    driver-class-name: oracle.jdbc.OracleDriver
+    username: TINGTING
+    password: TINGTING
+    
+  jpa:
+    database-platform: org.hibernate.dialect.OracleDialect
+    show-sql: true
+    properties:
+      hibernate:
+        format-sql: true
+    
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+
+
