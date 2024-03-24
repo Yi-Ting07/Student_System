@@ -3,6 +3,7 @@ package system.entity;
 import java.util.Date;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -48,7 +49,7 @@ public class StuClass {
 	@JoinColumn(name = "fk_sc_updater_id")
 	private Administrator classUpdater;
 	
-	@OneToMany(mappedBy = "stuClass", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "stuClass", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Student> studentList;
 
 	public Integer getScId() {
