@@ -24,9 +24,10 @@ public class LoginFilter implements Filter{
 		HttpServletRequest req = (HttpServletRequest)request;
 		boolean login = req.getServletPath().toUpperCase().indexOf("login".toUpperCase()) > 0;
 		boolean createAccount = req.getServletPath().toUpperCase().indexOf("createAccount".toUpperCase()) > 0;
+		boolean img = req.getServletPath().toUpperCase().indexOf("img".toUpperCase()) > 0;
 		
 		// 檢核是否有登入 (排除登入頁面、註冊頁面)
-		if(login || createAccount || req.getSession().getAttribute("admin") != null) {
+		if(login || createAccount || img || req.getSession().getAttribute("admin") != null) {
 			chain.doFilter(request, response);
 			return;
 		}else {
