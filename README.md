@@ -31,6 +31,11 @@
 5. 在學生查詢頁面，使用 JPA 的 Specification 進行多條件的複合式查詢。
 6. 在刪除班級時，會一併刪除該班級底下的所有學生資料。(使用 cascade = CascadeType.ALL)
 
+### 環境配置：
+資料庫版本： Oracle 11c
+Java版本： Java 17
+啟用前須先至 /student.system/src/main/resources/application.yml 修改spring.datasource.username 和 password (改成自己的)。
+
 ### 以下是建立 table 的 SQL：
 ```sql=
 DROP TABLE student;
