@@ -184,7 +184,7 @@
 				theForm.submit();
 			}
 			function confirm(theForm){
-				if($("#checkAccountText").val() == '此帳號可以使用' && $("#checkpasswordText").text() == ''){
+				if($("#checkAccountText").text() == '此帳號可以使用' && $("#checkpasswordText").text() == ''){
 					theForm.action="${pageContext.request.contextPath}/createAccount";
 					theForm.submit();
 				}else{
@@ -213,9 +213,11 @@
 						$("#checkAccountImg").css("width", "25");
 						if(data.result == '此帳號可以使用'){							
 							$("#checkAccountText").html(data.result);
+							$("#checkAccountText").css("color", "green");
 							$("#checkAccountImg").prop("src","/img/ok.png");
 						}else{
 							$("#checkAccountText").html(data.result);
+							$("#checkAccountText").css("color", "red");
 							$("#checkAccountImg").prop("src","/img/no.png");
 						}
 					},
