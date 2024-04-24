@@ -67,7 +67,7 @@ CREATE TABLE stu_class(
 CREATE TABLE student (
     stu_id int PRIMARY KEY,
     stu_name varchar2(20),
-    stu_no varchar2(10) unique,
+    stu_no varchar2(20),
     stu_gender varchar2(20),
     fk_stu_class_id int,
     stu_create_date DATE,
