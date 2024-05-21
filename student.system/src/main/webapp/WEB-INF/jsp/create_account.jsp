@@ -6,7 +6,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Document</title>
+		<title>學生管理系統</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 		
 		<style>
@@ -165,7 +165,7 @@
 					<tr>
 						<th class="lable">確認密碼: </th>
 						<td>
-							<input type="password" id="checkpassword" name="checkPassword" placeholder="請再輸入密碼" required onchange="checkPasswordFunc()">
+							<input type="password" id="checkpassword" name="checkPassword" placeholder="請再輸入密碼" required oninput="checkPasswordFunc()">
 							<div id="checkpasswordText"></div>
 						</td>
 					</tr>
@@ -203,7 +203,7 @@
 			function checkAccount(input){
 				$.ajax({
 					type: "GET",
-					url: "http://${pageContext.request.serverName}:${pageContext.request.serverPort}/createAccount_checkAccount",
+					url: "${pageContext.request.contextPath}/createAccount_checkAccount",
 					data: {
 						"account" : input.value
 					},
@@ -214,11 +214,11 @@
 						if(data.result == '此帳號可以使用'){							
 							$("#checkAccountText").html(data.result);
 							$("#checkAccountText").css("color", "green");
-							$("#checkAccountImg").prop("src","/img/ok.png");
+							$("#checkAccountImg").prop("src","${pageContext.request.contextPath}/img/ok.png");
 						}else{
 							$("#checkAccountText").html(data.result);
 							$("#checkAccountText").css("color", "red");
-							$("#checkAccountImg").prop("src","/img/no.png");
+							$("#checkAccountImg").prop("src","${pageContext.request.contextPath}/img/no.png");
 						}
 					},
 					error: function(e){

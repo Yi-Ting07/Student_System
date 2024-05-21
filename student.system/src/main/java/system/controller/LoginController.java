@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +24,8 @@ import system.service.LoginService;
 @Controller
 public class LoginController {
 	
+	private final Logger log = LogManager.getLogger(this.getClass());
+	
 	@Autowired
 	private LoginService loginService; 
 	
@@ -29,7 +33,9 @@ public class LoginController {
 	private AdministratorService administratorService;
 	
 	@RequestMapping("/login_page")
-	public String loginPage() {
+	public String loginPage(HttpServletRequest request) {
+		log.info("LoginController： 有人進來囉");
+		log.info("LoginController-訪問IP：" + getIpAddr(request));
 	    return "login_page";
 	}
 	
@@ -41,11 +47,11 @@ public class LoginController {
 		Boolean check = loginService.checkAccountInfo(account, password);
 		if(!check) {
 			request.setAttribute("error_msg", "帳號或密碼錯誤");
-			return loginPage();
+			return loginPage(request);
 		}
 		Administrator administrator = administratorService.getAdministrator(account);
 		request.getSession().setAttribute("admin", administrator);
-		response.sendRedirect("/query_page");
+		response.sendRedirect(request.getContextPath() + "/query_page");
 	    return "query_page";
 	}
 	
@@ -66,13 +72,13 @@ public class LoginController {
 			request.setAttribute("error_msg", "請輸入完整資料");
 			return "/create_account";
 		}
-	    return loginPage();
+	    return loginPage(request);
 	}
 	
 	@RequestMapping("/logout")
 	public String logout(HttpServletRequest request) {
 		request.getSession().invalidate();
-		return loginPage();
+		return loginPage(request);
 	}
 	
 	@GetMapping("/createAccount_checkAccount")
@@ -91,5 +97,36 @@ public class LoginController {
 		}
 		map.put("result", result);
 		return map;
+	}
+	
+	private String getIpAddr(HttpServletRequest request) {
+		String ip = request.getHeader("x-forwarded-for");
+		if(ip == null || ip.length() == 0 ||"unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("Proxy-Client-IP");
+		}
+		if(ip == null || ip.length() == 0 ||"unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("WL-Proxy-Client-IP");
+		}
+		if(ip == null || ip.length() == 0 ||"unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("HTTP_CLIENT_IP");
+		}
+		if(ip == null || ip.length() == 0 ||"unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+		}
+		if(ip == null || ip.length() == 0 ||"unknown".equalsIgnoreCase(ip)) {
+			ip = request.getRemoteAddr();
+		}
+		if(ip != null && ip.indexOf(",") != -1) {
+			String[] ipWithMultiProxy = ip.split(",");
+			
+			for(int i = 0 ; i < ipWithMultiProxy.length ; ++i) {
+				String eachIpSegement = ipWithMultiProxy[i];
+				if(!"unknown".equalsIgnoreCase(eachIpSegement)) {
+					ip = eachIpSegement;
+					break;
+				}
+			}
+		}
+		return ip;
 	}
 }

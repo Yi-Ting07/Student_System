@@ -8,7 +8,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Document</title>
+		<title>學生管理系統</title>
 		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 		<style>
@@ -207,6 +207,24 @@
 			}
 			
 			function deleteClass(theForm){
+// 				var objs = theForm["deleteClassIds"];
+// 				var isChecked = false;
+// 				for(i = 0 ; i < objs.length ; i++){
+// 					if(objs[i].checked){
+// 						isChecked = true;
+// 						break;
+// 					}
+// 				}
+// 				if(!isChecked){
+// 					alert("請選擇一筆資料");
+// 					return;
+// 				}
+			
+				var isChecked = $('input:checkbox[name=deleteClassIds]:checked');
+				if(isChecked.length == 0){
+					alert("請選擇一筆資料");
+					return;
+				}
 				theForm.action="${pageContext.request.contextPath}/delete_class"
 				theForm.submit();
 			}
