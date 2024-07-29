@@ -1,7 +1,7 @@
 這是一個在我學習 JAVA 後，練習從無到有建立的一個 Web 專案，<br>
 內容為學生管理系統，其中包含註冊/登入功能與學生/班級的「增、刪、改、查」功能。<br><br>
 畫面初始的登入網址：http://localhost:8085/login_page<br><br>
-可使用此ngrok轉址連結瀏覽實際作品網頁 (2024.07.17更新)：<br>https://5d5d-2407-4d00-2c04-82a6-b5f7-3ce8-ba09-b827.ngrok-free.app/student.system/login_page <br>
+可使用此ngrok轉址連結瀏覽實際作品網頁 (2024.07.29更新)：<br>https://1188-2407-4d00-2c04-82a6-9754-27ab-de18-4e93.ngrok-free.app/student.system/logout <br>
 (歡迎實際註冊帳號並體驗操作裡面的所有功能，不用擔心把資料玩壞喔!)
 
 ### 使用的語言及框架有：
